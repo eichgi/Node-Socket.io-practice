@@ -23,6 +23,7 @@ io.on('connection', function (socket) {
     let timestampMoment = moment.utc(timestamp);
 
     socket.emit('message', {
+        name: 'System',
         text: 'Welcome to the chat appplication',
         timestamp: moment().valueOf()
     });
