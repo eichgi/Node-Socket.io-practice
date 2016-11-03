@@ -3,7 +3,7 @@ var name = getQueryVariable('name') || 'Annonymous',
 var socket = io();
 
 console.log(name + ' - ' + room);
-$('.room-title').html(room);
+$('.room-title').html(room + ' Channel');
 
 socket.on('connect', function () {
     console.log('Connected to socket.io server');
@@ -15,11 +15,13 @@ socket.on('connect', function () {
 
 socket.on('message', function (message) {
     var momentTimestamp = moment.utc(message.timestamp);
-    var $message = $('.messages');
+    var $messages = $('.messages');
+    var $message = $('<li class="list-group-item"></li>');
     console.log('New message: ' + message.text);
 
     $message.append('<p><strong>' + message.name + ' ' + momentTimestamp.local().format('h:mm a') + '</strong></p>');
     $message.append('<p>' + message.text + '</p>');
+    $messages.append($message);
 
     //$('.messages').append('<p><strong>' + momentTimestamp.local().format('h:mm a') + ':</strong>' + message.text + '</p>');
 });
